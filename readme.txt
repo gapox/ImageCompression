@@ -16,5 +16,6 @@ Load data -> calculate sectors -> fetch coefficients of linear regressions in se
 
 
 
+
 The details of each of these steps will be explained in the future. Right now I am still developing on the idea.
 
