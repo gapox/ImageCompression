@@ -27,11 +27,11 @@ public class FieldRegressions {
 		return new int[]{xs,xe,ys,ye};
 	}
 	public void downscaleRegressions(){
-		for(int i=0;i<rX.length;i++){
-			rX[i][1]/=((double)rY.length);
+		for(int i=0;rY.length>1 && i<rX.length;i++){
+			rX[i][1]/=((double)rY.length-1);
 		}
-		for(int i=0;i<rY.length;i++){
-			rY[i][1]/=((double)rX.length);
+		for(int i=0;rX.length>1 && i<rY.length;i++){
+			rY[i][1]/=((double)rX.length-1);
 		}
 	}
 	public void addNormal(double normal){

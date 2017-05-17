@@ -259,11 +259,11 @@ public class CompressRegression {
 			}
 		}*/
 		//upscale derrivative for whole field.
-		for(int i=0;i<rX.length;i++){
-			rX[i][1]*=rY.length;
+		for(int i=0;rY.length>1 && i<rX.length;i++){
+			rX[i][1]*=(rY.length-1);
 		}
-		for(int i=0;i<rY.length;i++){
-			rY[i][1]*=rX.length;
+		for(int i=0;rX.length>1 && i<rY.length;i++){
+			rY[i][1]*=(rX.length-1);
 		}
 
 		for(int i=0;i<rX.length;i++){
