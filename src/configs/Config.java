@@ -13,12 +13,12 @@ public class Config {
     public static String LOCATION_OUT_PACK = "C:/Users/Gasper/Desktop/Projekti/javaSE/ImageCompression/Randomized/Results/";
     public static String LOCATION_IN_VIDEO = "C:/Users/Gasper/Desktop/Projekti/javaSE/ImageCompression/VIDEO/ORGs";
     public static String LOCATION_OUTVIDEO = "C:/Users/Gasper/Desktop/Projekti/javaSE/ImageCompression/VIDEO/RECONs";
-    public static String FILE_IN_NAME = "Lenna.png";
+    public static String FILE_IN_NAME = "wheat.jpg";
     public static String RECONSTRUCTION_NAME = "completePicture/1-RGB-RECONSTRUCTION.png";
     public static String BINARY_NAME = "compressed.gpeg";
     public static String COPYRIGHT_MESSAGE="\"created by: Gasper Primozic, 2017.\\n Copyright, don't fuck with it.\"";
 
-    public static double LUMA_SIMILARITY = 0.0202;
+    public static double LUMA_SIMILARITY = 0.0502;
     public static double CHROMA_SIMILARITY = 0.3*LUMA_SIMILARITY;
     public static boolean ADD_NOISE = true;
     public static boolean SAVE_STEPS = false;

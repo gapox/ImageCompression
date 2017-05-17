@@ -77,8 +77,8 @@ public class LinearAlgebra {
 		pInv=pInv.times(u.transpose());
 		if(transposed)
 			pInv=pInv.transpose();
-		multiply(pInv.getArray(), matrix);
-		return pInv.getArray();*/
+		multiply(pInv.getArrayLinearInterpolation(), matrix);
+		return pInv.getArrayLinearInterpolation();*/
 		double[] pinvData=pInv.getData();
 		double[][] pinv= new double[matrix[0].length][matrix.length];
 		int cols=pInv.getNumCols();
@@ -100,7 +100,7 @@ public class LinearAlgebra {
 		Matrix v= new Matrix(new double[][]{x});
 		mrx=mrx.times(v.transpose());
 		
-		return mrx.getArray();*/
+		return mrx.getArrayLinearInterpolation();*/
 		return new double[][]{m.data};
 	}
 
@@ -139,7 +139,7 @@ public class LinearAlgebra {
 		Matrix rec= u.times(s);
 		rec=rec.times(v);
 		if(transposed)rec=rec.transpose();
-		System.out.println("REC m:"+rec.getArray().length+", n:"+rec.getArray()[0].length);*/
+		System.out.println("REC m:"+rec.getArrayLinearInterpolation().length+", n:"+rec.getArrayLinearInterpolation()[0].length);*/
 		return;
 	}
 }

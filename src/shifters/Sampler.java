@@ -33,7 +33,7 @@ public class Sampler {
 		if (len == array.length)
 			return array;
 		dynA = new DynamicArray(array);
-		subs = dynA.getArray(len);
+		subs = dynA.getArrayLinearInterpolation(len);
 		return subs;
 	}
 
@@ -67,7 +67,7 @@ public class Sampler {
 		if(len==array.length)
 			return array;
 		dynA = new DynamicArray(array);
-		ups = dynA.getArray(len);
+		ups = dynA.getArrayBicubicInterpolation(len);
 		return ups;
 	}
 

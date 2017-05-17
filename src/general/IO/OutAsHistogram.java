@@ -64,7 +64,7 @@ public class OutAsHistogram {
 		minmax[0]=min;
 		minmax[1]=max;
 		DynamicArray da= new DynamicArray(new double[]{min, max});
-		double[] bounds=da.getArray(_imgWidth+1);
+		double[] bounds=da.getArrayLinearInterpolation(_imgWidth+1);
 		double lowerBound=bounds[0];
 		double upperBound=bounds[1];
 		int numInBox=0;
