@@ -18,7 +18,7 @@ public class Config {
     public static String BINARY_NAME = "compressed.gpeg";
     public static String COPYRIGHT_MESSAGE="\"created by: Gasper Primozic, 2017.\\n Copyright, don't fuck with it.\"";
 
-    public static double LUMA_SIMILARITY = 0.0202;
+    public static double LUMA_SIMILARITY = 0.1202;
     public static double CHROMA_SIMILARITY = 0.3*LUMA_SIMILARITY;
     public static boolean ADD_NOISE = true;
     public static boolean SAVE_STEPS = false;
