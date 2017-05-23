@@ -50,12 +50,12 @@ public class LinearAlgebra {
 		v=svd.getV(null, false);
 		for(int i=0;i<sVals.length;i++){
 			if(sVals[i]>0.0) {
-				if (sVals[i] > 0.0001)
+				if (sVals[i] > 0.000001)
 					sVals[i] = 1.0 / sVals[i];
 				else sVals[i] = 0;
 			}
 			else{
-				if (sVals[i] < -0.0001)
+				if (sVals[i] < -0.000001)
 					sVals[i] = 1.0 / sVals[i];
 				else sVals[i] = 0;
 			}

@@ -44,18 +44,18 @@ public class Regression {
 
 		double[] reg = new double[3];
 		double b = 0, cxy = 0, a = 0;
-		double factor=(double) (field.length+1) / 2.0;
+		double factor=(double) (field.length-1) / 2.0;
 		double average=0.0;
 		for (int i = 0; i < field.length; i++) {
-			cxy += (i +1- factor) * field[i];
+			cxy += (i- factor) * field[i];
 			average += field[i];
 		}
 		average /= field.length;
 		
-		b = (double) (cxy / cxsq(field.length));
+		b = (cxy / cxsq(field.length));
 		double mult=((double) (field.length - 1) / 2.0);
-		a = (double) (average - b * mult) ;
-		
+		a = (average - b * mult) ;
+
 		double var = 0;
 		for (int i = 0; i < field.length; i++) {
 			double regVal = (a + b * i);
@@ -141,8 +141,10 @@ public class Regression {
 
 	private double cxsq(double n) {
 		double x;
-		n -= 2;
-		x = n * n * n * 0.75 / 9 + n * n * 0.5 + n * 8.25 / 9 + 0.5;
+		//n -= 2;
+		//x = n * n * n * 0.75 / 9 + n * n * 0.5 + n * 8.25 / 9 + 0.5;
+		n--;
+		x=0.41666666666*n*n*n-0.75*n*n+0.08333333333*n;
 		return x;
 	}
 
