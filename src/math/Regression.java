@@ -143,8 +143,7 @@ public class Regression {
 		double x;
 		//n -= 2;
 		//x = n * n * n * 0.75 / 9 + n * n * 0.5 + n * 8.25 / 9 + 0.5;
-		n--;
-		x=0.41666666666*n*n*n-0.75*n*n+0.08333333333*n;
+		x=(n*n*n-n)/12;
 		return x;
 	}
 
