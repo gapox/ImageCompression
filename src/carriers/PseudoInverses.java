@@ -11,15 +11,10 @@ import java.util.Map;
 
 public class PseudoInverses {
 	Map<String, double[][]> pInvforDepth = new HashMap();
-	
-	Config cfg;
 
-	public PseudoInverses(int x, int y, Config cfg) {
-		this.cfg=cfg;
-	}
 
 	public void addPinverse(int x, int y) {
-		pInvforDepth.put(x+" "+y,new LinearAlgebra(generateMatrixToInverse(x, y)).pseudoInv());
+		pInvforDepth.put(x+" "+y,generatePinverse(x,y));
 	}
 	public void addTransposeAsInverse(int x, int y) {
 		pInvforDepth.put(x+" "+y,getTransposedMatrixToInverseAtDepth(x, y));
@@ -27,44 +22,18 @@ public class PseudoInverses {
 
 	public double[][] getPinverse(int x, int y) {
 		if(!pInvforDepth.containsKey(x+" "+y)){
-			//System.out.println("MISS!	x:"+x+"	y:"+y);
-			if(x*y<=cfg.MAX_PINV_CELLS)addPinverse(x, y);
-			else if(x*y<=cfg.MAX_TR_INV_CELLS)addTransposeAsInverse(x, y);
-			else return null;
+			System.out.println("MISS!	x:"+x+"	y:"+y);
+			if(x*y<=Config.MAX_PINV_CELLS)addPinverse(x, y);
+			else if(x*y<=Config.MAX_TR_INV_CELLS)addTransposeAsInverse(x, y);
 		}
 		return pInvforDepth.get(x+" "+y);
 	}
-
-	public String stringifyInverse(int depth) {
-		String matrix = "";
-		double[][] mrx = pInvforDepth.get(depth);
-		if (mrx != null) {
-			matrix += "Inverse for size(" + mrx.length + ", " + mrx[0].length + ")\n";
-			NumberFormat formatter = new DecimalFormat("#0.00");
-			for (int i = 0; i < mrx.length; i++) {
-				for (int j = 0; j < mrx[i].length; j++) {
-					if (mrx[i][j] < 0)
-						matrix += ("-" + formatter.format(-mrx[i][j]) + " ");
-					else
-						matrix += (" " + formatter.format(mrx[i][j]) + " ");
-
-				}
-				matrix += "\n";
-			}
-			matrix += "\n";
-			matrix += "\n";
-		} else {
-			matrix += "MATRIX NOT SPECIFIED!!\n\n";
-		}
-		return matrix;
+	public double[][] getPinverseOut(int x, int y){
+		return generatePinverse(x,y);
 	}
-
-	public void printInverses() {
-		for (int i = 0; i < pInvforDepth.size(); i++) {
-			System.out.println(stringifyInverse(i));
-		}
+	private double[][] generatePinverse(int x, int y){
+		return new LinearAlgebra(generateMatrixToInverse(x, y)).pseudoInv();
 	}
-
 	public float[][] getNormalisedInverseForDepth(int depth) {
 		if (getInverseForDepth(depth) == null)
 			return null;
@@ -108,7 +77,6 @@ public class PseudoInverses {
 	}
 
 	public double[][] getMatrixToInverseAtDepth(int x, int y) {
-
 		return generateMatrixToInverse(x,y);
 	}
 
@@ -117,7 +85,7 @@ public class PseudoInverses {
 		return new LinearAlgebra().transposeGivenMatrix(getMatrixToInverseAtDepth(x, y));
 	}
 
-	public double[][] generateMatrixToInverse(int x, int y) {
+	private double[][] generateMatrixToInverse(int x, int y) {
 		double[][] L = new double[2 * y + 2 * x][y * x];
 		double[] xb, xa, yb, ya;
 		Regression reg = new Regression();

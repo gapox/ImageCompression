@@ -28,14 +28,14 @@ public class ReconstructRegression {
 	Config cfg;
 	ConfigImg cimg;
 	public ReconstructRegression(int x, int y, ArrayList<Double> dataa, ArrayList<Double> datab, ArrayList<Double> datav, ArrayList<Double> normals,
-								 ArrayList<Byte> partitions, PseudoInverses pinv, ConfigImg cimg) {
+								 ArrayList<Byte> partitions, ConfigImg cimg) {
 		fields = new ArrayList();
 		sub= new Subsectors();
 		this.dataa = dataa;
 		this.datab = datab;
 		this.datav = datav;
 		this.normals=normals;
-		this.pinv=pinv;
+		pinv= new PseudoInverses();
 		this.cimg=cimg;
 		sampler= new Sampler();
 		partitionGetArray(partitions);
@@ -165,7 +165,7 @@ public class ReconstructRegression {
 		add += rX.length;
 		for (int i = 0; i < rY.length; i++)
 			coefs[add + i] = rY[i][0];
-		double[][] reconVect = new LinearAlgebra().multiply(pinv.getPinverse(dims[3]-dims[2], dims[1]-dims[0]), coefs);
+		double[][] reconVect = new LinearAlgebra().multiply(pinv.getPinverse(ye-ys, xe-xs), coefs);
 		double[][] reconstructed = new double[rX.length][rY.length];
 		for (int i = 0; i < reconVect[0].length; i++) {
 			reconstructed[i / rY.length][i % rY.length] = reconVect[0][i];

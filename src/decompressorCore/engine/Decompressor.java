@@ -25,7 +25,6 @@ public class Decompressor {
     int cnt = 0, bcnt = 7;
     ArrayList<FieldRegressions> fields;
     FieldRegressions[] field;
-    PseudoInverses pInv;
     //each channel has its own a, b and variances, and also the partitioning tree.
     ArrayList<Double> ya, yb, yv, ynormals, cba, cbb, cbv, cbnormals, cra, crb, crv, crnormals;
     ArrayList<Byte> yp, cbp, crp;
@@ -57,7 +56,6 @@ public class Decompressor {
         crv = iData.infos[2][2];
         crp = iData.infos[2][3];
         crnormals = iData.infos[2][4];
-        pInv = new PseudoInverses(iData.x, iData.y, cfg);
         //pInv.generatePinverses();
     }
 
@@ -90,7 +88,7 @@ public class Decompressor {
     }
 
     public double[][][] reconstructChannel(ArrayList<Double> a, ArrayList<Double> b, ArrayList<Double> v, ArrayList<Byte> p, ArrayList<Double> normals, int X, int Y) {
-        ReconstructRegression r = new ReconstructRegression(X, Y, a, b, v, normals, p, pInv, cimg);
+        ReconstructRegression r = new ReconstructRegression(X, Y, a, b, v, normals, p, cimg);
         return r.reconstruct();
     }
 

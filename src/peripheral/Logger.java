@@ -2,6 +2,8 @@ package peripheral;
 
 import configs.Config;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.time.LocalDateTime;
 
 public class Logger {
@@ -104,6 +106,29 @@ public class Logger {
 
     }
 
+    public static void printMrx(String name, double[][] mrx){
+        if (Config.LOG_TESTS) {
+            System.out.println(name+":");
+            outMrx(mrx);
+            System.out.println();
+        }
+    }
+
+    private static void outMrx(double[][] mrx){
+        NumberFormat posFmt = new DecimalFormat("#0.000");
+        NumberFormat negFmt = new DecimalFormat("#0.00");
+        for(int i=0;i<mrx.length;i++){
+            System.out.print("  ");
+            for(int j=0;j<mrx[i].length;j++){
+                if(mrx[i][j]>=0)
+                    System.out.print(posFmt.format(mrx[i][j])+"    ");
+                else
+                    System.out.print(negFmt.format(mrx[i][j])+"    ");
+            }
+            System.out.println();
+        }
+        System.out.println("Sizes:(m:"+mrx.length+",n:"+mrx[0].length+")");
+    }
     public static String humanReadableByteCount(long bytes, boolean si) {
         int unit = si ? 1000 : 1024;
         if (bytes < unit)

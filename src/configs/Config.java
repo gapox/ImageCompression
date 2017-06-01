@@ -13,15 +13,15 @@ public class Config {
     public static String LOCATION_OUT_PACK = "C:/Users/Gasper/Desktop/Projekti/javaSE/ImageCompression/Randomized/Results/";
     public static String LOCATION_IN_VIDEO = "C:/Users/Gasper/Desktop/Projekti/javaSE/ImageCompression/VIDEO/ORGs";
     public static String LOCATION_OUTVIDEO = "C:/Users/Gasper/Desktop/Projekti/javaSE/ImageCompression/VIDEO/RECONs";
-    public static String FILE_IN_NAME = "wheat.jpg";
+    public static String FILE_IN_NAME = "3x3.png";
     public static String RECONSTRUCTION_NAME = "completePicture/1-RGB-RECONSTRUCTION.png";
     public static String BINARY_NAME = "compressed.gpeg";
     public static String COPYRIGHT_MESSAGE="\"created by: Gasper Primozic, 2017.\\n Copyright, don't fuck with it.\"";
 
-    public static double LUMA_SIMILARITY = 0.2002;
+    public static double LUMA_SIMILARITY = 0.0202;
     public static double CHROMA_SIMILARITY = 0.3*LUMA_SIMILARITY;
     public static boolean ADD_NOISE = true;
-    public static boolean SAVE_STEPS = false;
+    public static boolean SAVE_STEPS = true;
     public static int MINIMAL_SECTOR_SIZE = 4;
     public static boolean SAVE_HISTS = false;
     //public static final boolean SAVE_COMPRESSED = false;
@@ -50,7 +50,8 @@ public class Config {
     public static boolean LOG_READ=true;
     public static boolean LOG_WRITE=true;
     public static boolean LOG_SIZE=true;
-    public static boolean LOG_TIME=true;
+	public static boolean LOG_TIME=true;
+	public static boolean LOG_TESTS=true;
 
     public static boolean WRITE_LOGS=true;
     public static boolean WRITE_WARNS=true;
