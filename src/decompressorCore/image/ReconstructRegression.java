@@ -166,6 +166,7 @@ public class ReconstructRegression {
 		for (int i = 0; i < rY.length; i++)
 			coefs[add + i] = rY[i][0];
 		double[][] reconVect = new LinearAlgebra().multiply(pinv.getPinverse(ye-ys, xe-xs), coefs);
+		//double[][] reconVect = new LinearAlgebra().multiply(pinv.getUpscaledZerolessPinverse(ye-ys, xe-xs), coefs);
 		double[][] reconstructed = new double[rX.length][rY.length];
 		for (int i = 0; i < reconVect[0].length; i++) {
 			reconstructed[i / rY.length][i % rY.length] = reconVect[0][i];

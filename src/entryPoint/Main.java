@@ -84,6 +84,8 @@ public class Main {
 			CoDecFrame codec = new CoDecFrame();
 			codec.imageCompressStdImg(cfg.LOCATION_IN +cfg.FILE_IN_NAME, cfg.LOCATION_OUT+cfg.BINARY_NAME);
 			codec.imageOpenDecompressAndSave(cfg.LOCATION_OUT +cfg.BINARY_NAME, cfg.LOCATION_OUT + "completePicture/1-RGB-RECONSTRUCTION");
+			if(Config.SAVE_DIFF)
+				codec.calcDiff(cfg.LOCATION_IN +cfg.FILE_IN_NAME, cfg.LOCATION_OUT + "completePicture/1-RGB-RECONSTRUCTION.png", cfg.LOCATION_OUT + "completePicture/1-RGB DIFF");
 			LOG.logTime("Everything together for the image took:", startAll);
 		}
 		catch (IOException e){

@@ -115,5 +115,13 @@ public class CoDecFrame {
         outAsHist.outputThis("Hists/CRv", infos[2][2]);
     }
 
+    public void calcDiff(String org, String rec, String outDiff)throws IOException{
+
+        int[][] orgRGB=iMan.openFieldRGB(org);
+        int[][] recRGB=iMan.openFieldRGB(rec);
+        int[][] diff=iMan.calculateDifference(orgRGB, recRGB);
+
+        iMan.saveFieldRGB(diff, outDiff);
+    }
 
 }

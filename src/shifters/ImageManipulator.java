@@ -65,7 +65,7 @@ public class ImageManipulator {
 	public void saveFieldRGB(int[][] arr, String fName) {
 		ToImg save;
 		save = new ToImg(arr);
-		LOG.logWrite("Saving RGB image to:"+fName);
+		LOG.logWrite("Saving RGB image to: 	"+fName);
 		save.outputRGB(fName);
 
 	}
@@ -73,7 +73,7 @@ public class ImageManipulator {
 	public void saveFieldYCbCr(double[][][] arr, String fName) {
 		ToImg save;
 		save = new ToImg(ColorSpaceShifter.ycbcr2rgb(arr));
-		LOG.logWrite("Saving RGB image to:"+fName);
+		LOG.logWrite("Saving YCBCR image to: 	"+fName);
 		save.outputRGB(fName);
 
 	}

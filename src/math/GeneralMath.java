@@ -26,4 +26,15 @@ public final class GeneralMath {
 		}
 		return dims;
 	}
+
+	public static int lcm(int x, int y){
+		return x*y/gcd(x,y);
+	}
+	public static int gcd(int x, int y){
+		int min= x<y? x : y;
+		int div=1;
+		for(int i=1;i<=min;i++)
+			if(x%i==0 && y%i==0)div=i;
+		return div;
+	}
 }

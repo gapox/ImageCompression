@@ -14,8 +14,8 @@ import peripheral.Logger;
 public class TestPseudoInverses {
 
 	PseudoInverses pi = new PseudoInverses();
-	int x=20;
-	int y=10;
+	int x=5;
+	int y=5;
 	@Test
 	public void shouldGetAndPrintPseudoInverses(){
 		double[][] mrx= pi.getMatrixToInverseAtDepth(x,y);
@@ -52,5 +52,28 @@ public class TestPseudoInverses {
 		img.outputBW(Config.LOCATION_OUT+"/Objects/multiplyTranspose/mrx");
 	}
 
+	@Test
+	public void testZerolessInverses(){
+		double[][] mrx= pi.getZerolessMatrixToInverseAtDepth(x,y);
+		ToImg img = new ToImg(mrx, true, true);
+		img.outputBW(Config.LOCATION_OUT+"/Objects/multiplyTranspose/mrxZer");
+		double[][] pInv=pi.getZerolessPinverseOut(x,y);
+		img = new ToImg(pInv,  true, true);
+		img.outputBW(Config.LOCATION_OUT+"/Objects/multiplyTranspose/pInvZer");
+		double[][] pInvU=pi.getUpscaledZerolessPinverse(x,y);
+		img = new ToImg(pInvU,  true, true);
+		img.outputBW(Config.LOCATION_OUT+"/Objects/multiplyTranspose/pInvZerUps");
+
+	}
+
+	@Test
+	public void multiplyZerolessInverseAndMrx(){
+		double[][] mrx= pi.getMatrixToInverseAtDepth(x,y);
+		double[][] pInvU=pi.getUpscaledZerolessPinverse(x,y);
+		LinearAlgebra la = new LinearAlgebra();
+		double [][] r=la.multiply(mrx,pInvU);
+		ToImg img = new ToImg(r,  false, true);
+		img.outputBW(Config.LOCATION_OUT+"/Objects/multiplyTranspose/pInvZerUpsMrx");
+	}
 
 }
