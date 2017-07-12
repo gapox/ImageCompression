@@ -5,6 +5,8 @@ import carriers.FieldRegressions;
 import carriers.PseudoInverses;
 import configs.ConfigImg;
 import math.LinearAlgebra;
+import math.Regression;
+import math.RegressionMerge;
 import math.Subsectors;
 import shifters.Sampler;
 
@@ -105,7 +107,9 @@ public class ReconstructRegression {
 
 	public void colorIn(FieldRegressions f) {
 		int[] dims= f.getDims();
-		if(f.getArea()<=_maxPixelsForSVD)
+		if(cfg.USE_REGRESSION_FITTING)
+			colorInRegFitV2(dims, f.rX, f.rY);
+		else if(cfg.USE_SVD_FITTING && f.getArea()<=_maxPixelsForSVD)
 			colorInSVD(dims, f.rX, f.rY);
 		else
 			colorInAvg(dims, f.rX, f.rY);
@@ -129,6 +133,64 @@ public class ReconstructRegression {
 					rec[i][j]=1.0;
 				if(rec[i][j]<0)
 					rec[i][j]=0;
+			}
+		}
+	}
+
+	public void colorInRegFit(int[] dims, double[][] rX, double[][] rY){
+		RegressionMerge regMrg= new RegressionMerge();
+		int xs = dims[0];
+		int xe = dims[1];
+		int ys = dims[2];
+		int ye = dims[3];
+		if (xe > rec.length)
+			xe = rec.length;
+		if (ye > rec[0].length)
+			ye = rec[0].length;
+		// for showing where the cuts of the image were.
+		lineInsert(xs, xe, ys, ye);
+
+
+		for (int i = xs; i < xe; i++) {
+			int x=i-xs;
+			for (int j = ys; j < ye; j++) {
+				int y=j-ys;
+				double color=getColor(xs, ys, i, j, rX[x], rY[y]);
+				rX[x]=regMrg.removeLeftMostValFromReg(rX[x], (ye-ys)-y, color);
+				rY[y]=regMrg.removeLeftMostValFromReg(rY[y], (xe-xs)-x, color);
+				rec[i][j] = color;
+				recLines[2 * i + 1][2 * j + 1] = color;
+			}
+		}
+	}
+
+
+	public void colorInRegFitV2(int[] dims, double[][] rX, double[][] rY){
+		RegressionMerge regMrg= new RegressionMerge();
+		Regression reg = new Regression();
+		int xs = dims[0];
+		int xe = dims[1];
+		int ys = dims[2];
+		int ye = dims[3];
+		if (xe > rec.length)
+			xe = rec.length;
+		if (ye > rec[0].length)
+			ye = rec[0].length;
+		// for showing where the cuts of the image were.
+		lineInsert(xs, xe, ys, ye);
+
+
+		for (int i = xs; i < xe; i++) {
+			int x=i-xs;
+			for (int j = ys; j < ye; j++) {
+				int y=j-ys;
+				double color=getColor(xs, ys, i, j, rX[x], rY[y]);
+				double xCol=reg.getValAt(rX[x], x);
+				double yCol=reg.getValAt(rY[y], y);
+				rX[x]=regMrg.removeLeftMostValFromReg(rX[x], 2*(ye-ys)-y, (yCol+color)/2.0);
+				rY[y]=regMrg.removeLeftMostValFromReg(rY[y], 2*(xe-xs)-x, (xCol+color)/2.0);
+				rec[i][j] = color;
+				recLines[2 * i + 1][2 * j + 1] = color;
 			}
 		}
 	}
@@ -225,12 +287,7 @@ public class ReconstructRegression {
 		
 		double cX = rX[0] + rX[1] * (y - ys);
 		double cY = rY[0] + rY[1] * (x - xs);
-		
-		//pass through 8 bit double
-		//double8Bit feb= new double8Bit();
-		//cX=feb.getDoubleFromSigned8bitdouble(feb.getSigned8bitdouble(cX));
-		//cY=feb.getDoubleFromSigned8bitdouble(feb.getSigned8bitdouble(cY));
-		
+
 		cX += cY;
 		cX /= 2;
 		if (cX > 1)

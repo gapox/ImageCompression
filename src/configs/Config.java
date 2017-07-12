@@ -13,18 +13,22 @@ public class Config {
     public static String LOCATION_OUT_PACK = "C:/Users/Gasper/Desktop/Projekti/javaSE/ImageCompression/Randomized/Results/";
     public static String LOCATION_IN_VIDEO = "C:/Users/Gasper/Desktop/Projekti/javaSE/ImageCompression/VIDEO/ORGs";
     public static String LOCATION_OUTVIDEO = "C:/Users/Gasper/Desktop/Projekti/javaSE/ImageCompression/VIDEO/RECONs";
-    public static String FILE_IN_NAME = "theRoom.png";
+    public static String FILE_IN_NAME = "sq.png";
     public static String RECONSTRUCTION_NAME = "completePicture/1-RGB-RECONSTRUCTION.png";
     public static String BINARY_NAME = "compressed.gpeg";
     public static String COPYRIGHT_MESSAGE="\"created by: Gasper Primozic, 2017.\\n Copyright, don't fuck with it.\"";
 
-    public static double LUMA_SIMILARITY = 0.2202;
+    public static double LUMA_SIMILARITY = 1.25202;
     public static double CHROMA_SIMILARITY = 0.3*LUMA_SIMILARITY;
     public static boolean ADD_NOISE = true;
-    public static boolean SAVE_STEPS = false;
-    public static boolean SAVE_DIFF = true;
+    public static boolean SAVE_STEPS = true;
+    public static boolean SAVE_DIFF = false;
     public static int MINIMAL_SECTOR_SIZE = 4;
     public static boolean SAVE_HISTS = false;
+
+	public static boolean USE_REGRESSION_FITTING=false;
+	public static boolean USE_SVD_FITTING=true;
+
     //public static final boolean SAVE_COMPRESSED = false;
     public static  boolean USE_TRANSPOSE_AS_INVERSE = true;
     public static  boolean DOWN_SAMPLE_REGRESSIONS = true;

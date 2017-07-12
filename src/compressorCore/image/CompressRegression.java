@@ -72,15 +72,13 @@ public class CompressRegression {
 			double[] col = new double[sizeY];
 			for (int j = ys; j < ye; j++)
 				col[j - ys] = img[i][j];
-			r.setField(col);
-			rX[i - xs] = r.getRegression();
+			rX[i - xs] = r.getRegression(col);
 		}
 		for (int i = ys; i < ye; i++) {
 			double[] col = new double[sizeX];
 			for (int j = xs; j < xe; j++)
 				col[j - xs] = img[j][i];
-			r.setField(col);
-			rY[i - ys] = r.getRegression();
+			rY[i - ys] = r.getRegression(col);
 		}
 		compress(new int[]{0,sizeX,0,sizeY}, rX, rY);
 		while(cnt>0)addBit(0);
@@ -185,8 +183,7 @@ public class CompressRegression {
 			double[] col = new double[ye - ys];
 			for (int j = ys; j < ye; j++)
 				col[j - ys] = img[i][j];
-			r.setField(col);
-			rX[i - xs] = r.getRegression();
+			rX[i - xs] = r.getRegression(col);
 		}
 		for (int i = ys; i < ye; i++) {
 			double[] col = new double[xe - xs];
@@ -194,8 +191,7 @@ public class CompressRegression {
 				col[j - xs] = img[j][i];
 			}
 
-			r.setField(col);
-			rY[i - ys] = r.getRegression();
+			rY[i - ys] = r.getRegression(col);
 		}
 
 

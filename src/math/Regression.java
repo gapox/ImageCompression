@@ -1,27 +1,15 @@
 package math;
 
 public class Regression {
-	private double[] field;
 
-	public Regression() {
-		field = null;
-	}
 
-	public Regression(double[] array) {
-		field = array;
-	}
-
-	public void setField(double[] array) {
-		field = array;
-	}
-
-	public double[] getGeneralizedRegression() {
+	public double[] getGeneralizedRegression(double[] field) {
 		double[] reg = new double[3];
 		double x, y, x2, xy;
-		x = getAvgPos();
-		x2 = getSqAvgPos();
-		y = getAvgVals();
-		xy = getAvgComp();
+		x = getAvgPos(field);
+		x2 = getSqAvgPos(field);
+		y = getAvgVals(field);
+		xy = getAvgComp(field);
 		double b = xy - (x * y);
 		b /= (x2 - (x * x));
 		double a = y * x2 - (x * xy);
@@ -40,8 +28,9 @@ public class Regression {
 		return reg;
 	}
 
-	public double[] getRegression() {
-
+	public double[] getRegression(double[] field) {
+		if(field.length==1)
+			return new double[]{field[0],0,0};
 		double[] reg = new double[3];
 		double b = 0, cxy = 0, a = 0;
 		double factor=(double) (field.length-1) / 2.0;
@@ -70,7 +59,7 @@ public class Regression {
 		return reg;
 	}
 
-	public double[] getMulFactors() {
+	public double[] getMulFactors(double[] field) {
 		return getMulFactors(field.length);
 	}
 
@@ -98,7 +87,7 @@ public class Regression {
 		return ret;
 	}
 
-	private double getAvgVals() {
+	private double getAvgVals(double[] field) {
 		double avg = 0;
 		for (int i = 0; i < field.length; i++)
 			avg += field[i];
@@ -106,7 +95,7 @@ public class Regression {
 		return avg;
 	}
 
-	private double getSqAvgVals() {
+	private double getSqAvgVals(double[] field) {
 		double avg = 0;
 		for (int i = 0; i < field.length; i++)
 			avg += (field[i] * field[i]);
@@ -114,7 +103,7 @@ public class Regression {
 		return avg;
 	}
 
-	private double getAvgPos() {
+	private double getAvgPos(double[] field) {
 		double avg = 0;
 		for (int i = 0; i < field.length; i++)
 			avg += i;
@@ -122,7 +111,7 @@ public class Regression {
 		return avg;
 	}
 
-	private double getSqAvgPos() {
+	private double getSqAvgPos(double[] field) {
 		double avg = 0;
 		for (int i = 0; i < field.length; i++)
 			avg += i * i;
@@ -130,7 +119,7 @@ public class Regression {
 		return avg;
 	}
 
-	private double getAvgComp() {
+	private double getAvgComp(double[] field) {
 		double avg = 0;
 		for (int i = 0; i < field.length; i++)
 			avg += field[i] * i;
@@ -139,7 +128,7 @@ public class Regression {
 	}
 
 
-	private double cxsq(double n) {
+	public double cxsq(double n) {
 		double x;
 		//n -= 2;
 		//x = n * n * n * 0.75 / 9 + n * n * 0.5 + n * 8.25 / 9 + 0.5;
@@ -147,4 +136,11 @@ public class Regression {
 		return x;
 	}
 
+	public static double getAverageOfReg(double[] r, int n){
+		return r[0]+r[1]*((double)n-1)/2.0;
+	}
+
+	public static double getValAt(double[] r, int i){
+		return r[0]+r[1]*i;
+	}
 }
